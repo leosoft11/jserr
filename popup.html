@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>JavaScript Errors Notifier</title>
@@ -15,19 +16,31 @@
 		}
 	</style>
 </head>
+
 <body>
 
-<pre>
+	<pre>
 	<span id="errors"></span>
 </pre>
 
-<div class="buttonsBlock">
-		<a href="#x" title="Copy"><svg style="height: 16px; width: 16px;" id="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M5 12l5.02 4.9L21.15 4c.65-.66 1.71-.66 2.36 0 .65.67.65 1.74 0 2.4l-12.3 14.1c-.33.33-.76.5-1.18.5-.43 0-.86-.17-1.18-.5l-6.21-6.1c-.65-.66-.65-1.74 0-2.41.65-.65 1.71-.65 2.36.01z"/></svg></a
-		><a href="#x"><img id="showPopup" src="img/popup_off.png" /></a
-		><a style="display: none;" href="#x"><img id="showIcon" src="img/icon_off.png" /></a
-		><a href="options.html" id="settings_pop" title="Options (global)"><svg style="height: 16px; width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><path d="M8.31 17.95c-.75-.75-1.97-.75-2.72 0l-1.1 1.1H3V21h1.49l1.59 1.64c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.98 0-2.73l-.73-.73zm1.78-8.31c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.97 0-2.72l-.74-.74c-.75-.75-1.98-.75-2.72 0l-1.1 1.1H3V8h5.49l1.6 1.64zM15 6h10v2H15zm-4 13h14v2H11zm10.1-2.45c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.98 0-2.72l-.74-.74c-.75-.75-1.97-.75-2.72 0L19.5 13H3v1.9h16.5l1.6 1.65z"/></svg></a
-		><a href="#x" id="clear" title="Clear"><svg style="height: 16px; width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15.6 15.5c-.53.53-1.38.53-1.91 0L8.05 9.87 2.31 15.6c-.53.53-1.38.53-1.91 0s-.53-1.38 0-1.9l5.65-5.64L.4 2.4C-.13 1.87-.13 1.02.4.49s1.38-.53 1.91 0l5.64 5.63L13.69.39c.53-.53 1.38-.53 1.91 0s.53 1.38 0 1.91L9.94 7.94l5.66 5.65c.52.53.52 1.38 0 1.91z"/></svg></a>
-</div>
+	<div class="buttonsBlock">
+		<a href="#x" style="display: none;" title="Copy"><svg style="height: 12px; width: 12px;" id="copy"
+				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+				<path
+					d="M5 12l5.02 4.9L21.15 4c.65-.66 1.71-.66 2.36 0 .65.67.65 1.74 0 2.4l-12.3 14.1c-.33.33-.76.5-1.18.5-.43 0-.86-.17-1.18-.5l-6.21-6.1c-.65-.66-.65-1.74 0-2.41.65-.65 1.71-.65 2.36.01z" />
+			</svg></a><a href="#x"><img id="showPopup" src="img/popup_off.png" /></a><a style="display: none;"
+			href="#x"><img id="showIcon" src="img/icon_off.png" /></a><a href="options.html" id="settings_pop"
+			title="Options (global)"><svg style="height: 12px; width: 12px;" xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 28 28">
+				<path
+					d="M8.31 17.95c-.75-.75-1.97-.75-2.72 0l-1.1 1.1H3V21h1.49l1.59 1.64c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.98 0-2.73l-.73-.73zm1.78-8.31c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.97 0-2.72l-.74-.74c-.75-.75-1.98-.75-2.72 0l-1.1 1.1H3V8h5.49l1.6 1.64zM15 6h10v2H15zm-4 13h14v2H11zm10.1-2.45c.48.48 1.25.48 1.73 0l1.23-1.23c.75-.75.75-1.98 0-2.72l-.74-.74c-.75-.75-1.97-.75-2.72 0L19.5 13H3v1.9h16.5l1.6 1.65z" />
+			</svg></a><a href="#x" id="clear" title="Clear"><svg style="height: 12px; width: 12px;"
+				xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+				<path
+					d="M15.6 15.5c-.53.53-1.38.53-1.91 0L8.05 9.87 2.31 15.6c-.53.53-1.38.53-1.91 0s-.53-1.38 0-1.9l5.65-5.64L.4 2.4C-.13 1.87-.13 1.02.4.49s1.38-.53 1.91 0l5.64 5.63L13.69.39c.53-.53 1.38-.53 1.91 0s.53 1.38 0 1.91L9.94 7.94l5.66 5.65c.52.53.52 1.38 0 1.91z" />
+			</svg></a>
+	</div>
 
 </body>
+
 </html>

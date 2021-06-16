@@ -1,4 +1,4 @@
-new function() {
+new function () {
 
 	var errors = [];
 	var errorsLimit = 100;
@@ -12,11 +12,11 @@ new function() {
 
 
 	function showPopup(popupUrl) {
-		if(!popup) {
+		if (!popup) {
 			popup = document.createElement('iframe');
 			popup.src = popupUrl;
 			popup.frameBorder = 0;
-			popup.style.cssText = 'position: fixed !important; bottom: 10px !important; right: 10px !important; z-index: 2147483647 !important; border: 1px solid #333; border-radius: 16px;';
+			popup.style.cssText = 'position: fixed !important; bottom: 10px !important; right: 10px !important; z-index: 2147483647 !important; border: 1px solid rgb(51, 51, 51,0.1)';
 			popup.height = '50px';
 			(document.body || document.documentElement).appendChild(popup);
 		}
@@ -29,17 +29,17 @@ new function() {
 	}
 
 	function showErrorNotification(popupUrl) {
-		if(options.showPopup) {
+		if (options.showPopup) {
 			showPopup(popupUrl);
 		}
 
-		if(!icon && (options.showIcon || options.showPopup)) {
+		if (!icon && (options.showIcon || options.showPopup)) {
 			icon = document.createElement('img');
 			icon.src = chrome.extension.getURL('img/error_38.png');
 			icon.title = 'Some errors occurred on this page. Click to see details.';
 			icon.style.cssText = 'display:none; position: fixed !important; bottom: 10px !important; right: 10px !important; cursor: pointer !important; z-index: 2147483647 !important; width: 38px !important; height: 38px !important; min-height: 38px !important; min-width: 38px !important; max-height: 38px !important; max-width: 38px !important;';
-			icon.onclick = function() {
-				if(!popup) {
+			icon.onclick = function () {
+				if (!popup) {
 					showPopup(popupUrl);
 				}
 				else {
@@ -47,9 +47,9 @@ new function() {
 					popup = null;
 				}
 			};
-			if(options.showPopupOnMouseOver) {
-				icon.onmouseover = function() {
-					if(!popup) {
+			if (options.showPopupOnMouseOver) {
+				icon.onmouseover = function () {
+					if (!popup) {
 						showPopup(popupUrl);
 					}
 				};
@@ -62,20 +62,20 @@ new function() {
 		var lastError = errors[errors.length - 1];
 		var isSameAsLast = lastError && lastError.text == error.text && lastError.url == error.url && lastError.line == error.line && lastError.col == error.col;
 		var isWrongUrl = !error.url || error.url.indexOf('://') === -1;
-		if(!isSameAsLast && !isWrongUrl) {
+		if (!isSameAsLast && !isWrongUrl) {
 			errors.push(error);
-			if(errors.length > errorsLimit) {
+			if (errors.length > errorsLimit) {
 				errors.shift();
 			}
-			if(!timer) {
-				timer = window.setTimeout(function() {
+			if (!timer) {
+				timer = window.setTimeout(function () {
 					timer = null;
 					chrome.runtime.sendMessage({
 						_errors: true,
 						errors: errors,
 						url: window.top.location.href
-					}, function(popupUrl) {
-						if(popupUrl) {
+					}, function (popupUrl) {
+						if (popupUrl) {
 							showErrorNotification(popupUrl);
 						}
 					});
@@ -84,9 +84,9 @@ new function() {
 		}
 	}
 
-	document.addEventListener('ErrorToExtension', function(e) {
+	document.addEventListener('ErrorToExtension', function (e) {
 		var error = e.detail;
-		if(isIFrame) {
+		if (isIFrame) {
 			window.top.postMessage({
 				_iframeError: true,
 				_fromJEN: true,
@@ -101,7 +101,7 @@ new function() {
 	function codeToInject() {
 
 		function handleCustomError(message, stack) {
-			if(!stack) {
+			if (!stack) {
 				stack = (new Error()).stack.split("\n").splice(2, 4).join("\n");
 			}
 
@@ -120,7 +120,7 @@ new function() {
 		}
 
 		// handle uncaught promises errors
-		window.addEventListener('unhandledrejection', function(e) {
+		window.addEventListener('unhandledrejection', function (e) {
 			if (typeof e.reason === 'undefined') {
 				e.reason = e.detail;
 			}
@@ -129,9 +129,9 @@ new function() {
 
 		// handle console.error()
 		var consoleErrorFunc = window.console.error;
-		window.console.error = function() {
+		window.console.error = function () {
 			var argsArray = [];
-			for(var i in arguments) { // because arguments.join() not working! oO
+			for (var i in arguments) { // because arguments.join() not working! oO
 				argsArray.push(arguments[i]);
 			}
 			consoleErrorFunc.apply(console, argsArray);
@@ -140,8 +140,8 @@ new function() {
 		};
 
 		// handle uncaught errors
-		window.addEventListener('error', function(e) {
-			if(e.filename) {
+		window.addEventListener('error', function (e) {
+			if (e.filename) {
 				document.dispatchEvent(new CustomEvent('ErrorToExtension', {
 					detail: {
 						stack: e.error ? e.error.stack : null,
@@ -155,10 +155,10 @@ new function() {
 		});
 
 		// handle 404 errors
-		window.addEventListener('error', function(e) {
+		window.addEventListener('error', function (e) {
 			var src = e.target.src || e.target.href;
 			var baseUrl = e.target.baseURI;
-			if(src && baseUrl && src != baseUrl) {
+			if (src && baseUrl && src != baseUrl) {
 				document.dispatchEvent(new CustomEvent('ErrorToExtension', {
 					detail: {
 						is404: true,
@@ -175,19 +175,19 @@ new function() {
 	script.parentNode.removeChild(script);
 
 	function handleInternalMessage(data) {
-		if(!isIFrame && (!data.tabId || data.tabId == tabId)) {
-			if(data._clear) {
+		if (!isIFrame && (!data.tabId || data.tabId == tabId)) {
+			if (data._clear) {
 				errors = [];
-				if(popup) {
+				if (popup) {
 					popup.remove();
 					popup = null;
 				}
-				if(icon) {
+				if (icon) {
 					icon.remove();
 					icon = null;
 				}
 			}
-			else if(data._resize && popup) {
+			else if (data._resize && popup) {
 				var maxHeight = Math.round(window.innerHeight * options.popupMaxHeight / 100) - 60;
 				var maxWidth = Math.round(window.innerWidth * options.popupMaxWidth / 100) - 60;
 				var height = data.height < maxHeight ? data.height : maxHeight;
@@ -197,10 +197,10 @@ new function() {
 				popup.style.height = '42px';
 				popup.style.width = '308px';
 			}
-			else if(data._closePopup && popup) {
+			else if (data._closePopup && popup) {
 				popup.style.display = 'none';
 			}
-			else if(data._iframeError) {
+			else if (data._iframeError) {
 				handleNewError(data.error);
 			}
 		}
@@ -208,17 +208,17 @@ new function() {
 
 	chrome.runtime.onMessage.addListener(handleInternalMessage);
 
-	window.addEventListener('message', function(event) {
-		if(typeof event.data === 'object' && event.data && typeof event.data._fromJEN !== 'undefined' && event.data._fromJEN) {
+	window.addEventListener('message', function (event) {
+		if (typeof event.data === 'object' && event.data && typeof event.data._fromJEN !== 'undefined' && event.data._fromJEN) {
 			handleInternalMessage(event.data);
 		}
 	});
 
-	if(!isIFrame) {
+	if (!isIFrame) {
 		chrome.runtime.sendMessage({
 			_initPage: true,
 			url: window.location.href
-		}, function(response) {
+		}, function (response) {
 			options = response;
 		});
 	}
