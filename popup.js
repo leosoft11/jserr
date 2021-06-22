@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		let mass = leo.replace(test, '').split(',').reverse().slice(1).reverse();
 		setTimeout(() => {
 			clearNode.click();
-		}, 3000)
+		}, 7000)
 
 
 		mass.forEach((item, i) => {
