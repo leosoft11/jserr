@@ -42,6 +42,38 @@ document.addEventListener('DOMContentLoaded', function () {
 		'img/enabled.png'
 	]);
 
+	// const whitelist = [
+	// 	{
+	// 		"id": "1",
+	// 		"errors": {
+	// 			"name": 'Failed to load resource: the server responded with a status of 404 (Not Found)',
+	// 		}
+	// 	},
+	// 	{
+	// 		"id": "2",
+	// 		"errors": {
+	// 			"name": 'Uncaught TypeError: window.djpush is not a function',
+	// 		}
+	// 	},
+	// 	{
+	// 		"id": "3",
+	// 		"errors": {
+	// 			"name": 'BLOCKED_BY_CLIENT',
+	// 		}
+	// 	},
+	// 	{
+	// 		"id": "4",
+	// 		"errors": {
+	// 			"name": "Uncaught SyntaxError: Unexpected token ')'"
+	// 		}
+	// 	}
+	// ]
+
+
+
+
+
+
 	if (!request.errors) {
 		errorsNode.innerHTML = '<p style="padding: 20px">There are no errors on this page :)</p>';
 		copyNode.remove();
@@ -49,18 +81,44 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	else {
 
+		let whitelist2 = [
+			"Failed to load resource: the server responded with a status of 404 (Not Found)",
+			"Uncaught TypeError: window.djpush is not a function",
+			"'BLOCKED_BY_CLIENT', Uncaught SyntaxError: Unexpected token ')'",
+			"ReferenceError: AjaxForm is not defined&nbsp;/blog/razrabotka-sajtov/11-oshibok-yuzabiliti-sozdaem-effektivnyie-sajtyi.html:22:108964"
+		]
 
 		let leo = request.errors;
 		let test = new RegExp('<br/>', 'g');
 		let mass = leo.replace(test, '').split(',').reverse().slice(1).reverse();
+
+
+
+		// mass.forEach((item, i) => {
+		// 	errorsNode.innerHTML = `<p>${i + 1} - ${item}</p>`;
+		// });
+
+
+		mass = mass.filter(item => !whitelist2.includes(item));
+		mass.lenght === 0 ? errorsNode.innerHTML = `<p>${mass}</p>` : errorsNode.innerHTML = `<p>Ой тут пусто</p>`;
+
+		console.log(mass);
 		setTimeout(() => {
 			clearNode.click();
 		}, 7000)
 
-
-		mass.forEach((item, i) => {
-			errorsNode.innerHTML = `<p>${i + 1} - ${item}</p>`;
-		});
+		// whitelist.forEach(item => {
+		// 	const removeItemInce = (arr) => {
+		// 		const index = arr.indexOf(item.errors.name);
+		// 		if (index > -1) {
+		// 			arr.splice(index, 1);
+		// 			errorsNode.innerHTML = `<p>${arr}</p>`;
+		// 		} else {
+		// 			errorsNode.innerHTML = `<p>С этим живем :)</p>`;
+		// 		}
+		// 	};
+		// 	removeItemInce(mass);
+		// });
 		settings.style = 'display:none;';
 
 		clearNode.onclick = function () {
@@ -82,11 +140,36 @@ document.addEventListener('DOMContentLoaded', function () {
 			let test = new RegExp('<br/>', 'g');
 			let mass = leo.replace(test, '').split(',').reverse().slice(1).reverse();
 
+			let whitelist2 = [
+				"Failed to load resource: the server responded with a status of 404 (Not Found)",
+				"Uncaught TypeError: window.djpush is not a function",
+				"'BLOCKED_BY_CLIENT', Uncaught SyntaxError: Unexpected token ')'",
+				"ReferenceError: AjaxForm is not defined&nbsp;/blog/razrabotka-sajtov/11-oshibok-yuzabiliti-sozdaem-effektivnyie-sajtyi.html:22:108964"
+			]
 
-			mass.forEach((item, i) => {
-				errorsNode.innerHTML = `<p>${i} - ${item}</p>`;
-				console.log(`${i + 1} - ${item}`);
-			})
+
+			mass = mass.filter(item => !whitelist2.includes(item));
+			mass.lenght === 0 ? errorsNode.innerHTML = `<p>${mass}</p>` : errorsNode.innerHTML = `<p>Ой тут пусто</p>`;
+
+
+			// mass.forEach((item, i) => {
+			// 	errorsNode.innerHTML = `<p>${i} - ${item}</p>`;
+			// 	console.log(`${i + 1} - ${item}`);
+			// })
+
+			// whitelist.forEach(item => {
+			// 	const removeItemInce = (arr) => {
+			// 		const index = arr.indexOf(item.errors.name);
+			// 		if (index > -1) {
+			// 			arr.splice(index, 1);
+			// 			errorsNode.innerHTML = `<p>${arr}</p>`;
+			// 		} else {
+			// 			errorsNode.innerHTML = `<p> С этим живем :)</p>`;
+			// 			clearNode.click();
+			// 		}
+			// 	};
+			// 	removeItemInce(mass);
+			// });
 
 			console.log(mass.reverse().slice(1).reverse());
 
